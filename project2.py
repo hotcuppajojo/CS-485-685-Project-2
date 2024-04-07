@@ -366,14 +366,11 @@ def plot_matches(image1, image2, matches):
 
         # Draw a circle at the location of each keypoint
         # This is done to visually indicate the location of the keypoints
-        # Green is used for the keypoints in the first image and red is used for the keypoints in the second image
-        cv2.circle(new_image, pt1, 5, (0, 255, 0), -1)  # Green for the first image
-        cv2.circle(new_image, pt2, 5, (0, 0, 255), -1)  # Red for the second image
-
+        cv2.circle(new_image, pt1, 5, (0, 0, 255), -1)
+        cv2.circle(new_image, pt2, 5, (0, 0, 255), -1)
         # Draw a line connecting each pair of matched keypoints
         # This is done to visually indicate the matches
-        # Cyan is used for the lines to provide a contrast with the green and red circles
-        cv2.line(new_image, pt1, pt2, (255, 255, 0), 1)  # Cyan line to connect matches
+        cv2.line(new_image, pt1, pt2, (0, 0, 255), -1)
 
     return new_image
 
