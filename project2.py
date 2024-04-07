@@ -370,7 +370,7 @@ def plot_matches(image1, image2, matches):
         cv2.circle(new_image, pt2, 5, (0, 0, 255), -1)
         # Draw a line connecting each pair of matched keypoints
         # This is done to visually indicate the matches
-        cv2.line(new_image, pt1, pt2, (0, 0, 255), -1)
+        cv2.line(new_image, pt1, pt2, (0, 0, 255), 1)
 
     return new_image
 
