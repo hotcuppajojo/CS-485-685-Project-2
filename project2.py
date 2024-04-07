@@ -93,15 +93,18 @@ def plot_keypoints(image, keypoints):
     - The image with the keypoints plotted on it.
     """
 
+    # Create a copy of the image to avoid modifying the original
+    image_copy = image.copy()
+
     # Check if image is color
     # This is done because the cv2.circle function expects a 3-channel image
     # If the image is grayscale (2D), it needs to be converted to RGB (3D)
-    if len(image.shape) == 3:
-        image_rgb = image
+    if len(image_copy.shape) == 3:
+        image_rgb = image_copy
     else:
         # Convert the grayscale image to RGB
         # cv2.cvtColor is used because it can convert images between different color spaces
-        image_rgb = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
+        image_rgb = cv2.cvtColor(image_copy, cv2.COLOR_GRAY2RGB)
 
     # Plot keypoints
     # This is done by drawing a small circle at each keypoint location
