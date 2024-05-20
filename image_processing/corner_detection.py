@@ -54,7 +54,7 @@ def harris_detector(image, window_size=3, k=0.04):
     R = det - k * trace**2
     threshold = 0.01 * R.max()
     keypoints = np.argwhere(R > threshold)
-    keypoints = [tuple(reversed(point)) for point in keypoints]
+    keypoints = [tuple(map(int, reversed(point))) for point in keypoints]
     return keypoints
 
 def gaussian_filter(image, sigma=1):
