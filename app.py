@@ -6,12 +6,12 @@ from feature_matching.matching import feature_matching
 from visualization.plotting import plot_keypoints, plot_matches
 
 def process_image(image1, image2, detector, extractor):
-    img1 = load_img(image1.name, grayscale=True)
+    img1 = load_img(image1, grayscale=True)
     keypoints1 = moravec_detector(img1) if detector == 'Moravec' else harris_detector(img1)
     img1_with_keypoints = plot_keypoints(img1, keypoints1)
 
     if image2:
-        img2 = load_img(image2.name, grayscale=True)
+        img2 = load_img(image2, grayscale=True)
         matches = feature_matching(img1, img2, detector, extractor)
         img_with_matches = plot_matches(img1, img2, matches)
         return img1_with_keypoints, img_with_matches
@@ -21,8 +21,8 @@ def process_image(image1, image2, detector, extractor):
 iface = gr.Interface(
     fn=process_image,
     inputs=[
-        gr.Image(type="file", label="Image 1"),
-        gr.Image(type="file", label="Image 2 (optional)"),
+        gr.Image(type="filepath", label="Image 1"),
+        gr.Image(type="filepath", label="Image 2 (optional)"),
         gr.Radio(["Moravec", "Harris"], label="Detector"),
         gr.Radio(["LBP", "HOG"], label="Extractor")
     ],
