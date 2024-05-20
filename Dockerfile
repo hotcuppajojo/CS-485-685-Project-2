@@ -10,7 +10,7 @@ WORKDIR /usr/src/app
 
 # Create directories and set permissions
 RUN mkdir -p /usr/src/app/matplotlib /usr/src/app/flagged && \
-    chmod -R 777 /usr/src/app/matplotlib /usr/src/app/flagged
+    chmod -R 777 /usr/src/app/matplotlib /usr.src/app/flagged
 
 # Copy the current directory contents into the container at /usr/src/app
 COPY . .
