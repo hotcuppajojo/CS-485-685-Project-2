@@ -38,6 +38,11 @@ jobs:
         cd Retro-Corner-Feature-Detector_Moravec-Harris_with_LBP-HOG
         git remote set-url origin https://username:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/HotCuppaJoJo/Retro-Corner-Feature-Detector_Moravec-Harris_with_LBP-HOG
 
+    - name: Configure Git
+      run: |
+        git config --global user.email "${{ secrets.GH_EMAIL }}"
+        git config --global user.name "${{ secrets.GH_NAME }}"
+
     - name: Update Docker image in Hugging Face Space
       run: |
         echo 'FROM ${{ secrets.DOCKER_HUB_USERNAME }}/project2-image:latest' > Retro-Corner-Feature-Detector_Moravec-Harris_with_LBP-HOG/Dockerfile
