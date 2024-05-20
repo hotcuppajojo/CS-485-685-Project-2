@@ -1,8 +1,9 @@
 import os
+import tempfile
 
 # Set environment variables for Matplotlib and Gradio
-os.environ['MPLCONFIGDIR'] = '/tmp/'
-os.environ['FLAGGING_DIR'] = '/tmp/flagged'
+os.environ['MPLCONFIGDIR'] = os.getenv('MPLCONFIGDIR', tempfile.mkdtemp())
+os.environ['FLAGGING_DIR'] = os.getenv('FLAGGING_DIR', tempfile.mkdtemp())
 
 import gradio as gr
 from image_processing.image_io import load_img
@@ -76,7 +77,7 @@ iface = gr.Interface(
     ],
     title="Project2 Image Processing",
     description="Upload an image to detect and display keypoints. Optionally, upload a second image for feature matching.",
-    flagging_dir=os.getenv('FLAGGING_DIR')  # Set the flagging directory to /tmp/flagged
+    flagging_dir=os.getenv('FLAGGING_DIR', tempfile.mkdtemp())  # Set the flagging directory to the environment variable
 )
 
 iface.launch(server_name="0.0.0.0", server_port=7860)
