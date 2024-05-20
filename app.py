@@ -1,3 +1,4 @@
+import os
 import gradio as gr
 from image_processing.image_io import load_img
 from image_processing.corner_detection import moravec_detector, harris_detector
@@ -56,6 +57,10 @@ def process_image(image1, image2, detector, extractor):
         print(f"Error: {e}")
         return None, None
 
+# Set the flagging directory to a writable location
+flagging_dir = "/usr/src/app/flagged"
+os.makedirs(flagging_dir, exist_ok=True)
+
 iface = gr.Interface(
     fn=process_image,
     inputs=[
@@ -69,7 +74,8 @@ iface = gr.Interface(
         gr.Image(type="numpy", label="Matched Image")
     ],
     title="Project2 Image Processing",
-    description="Upload an image to detect and display keypoints. Optionally, upload a second image for feature matching."
+    description="Upload an image to detect and display keypoints. Optionally, upload a second image for feature matching.",
+    flagging_dir=flagging_dir  # Set the flagging directory
 )
 
-iface.launch(server_name="0.0.0.0", server_port=8000)
+iface.launch(server_name="0.0.0.0", server_port=7860)
