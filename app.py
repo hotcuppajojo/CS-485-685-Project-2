@@ -1,8 +1,8 @@
 import os
 
-# Set environment variables for Matplotlib and Gradio to use /tmp
-os.environ['MPLCONFIGDIR'] = os.path.join('/tmp', 'matplotlib')
-os.environ['FLAGGING_DIR'] = os.path.join('/tmp', 'flagged')
+# Set environment variables for Matplotlib and Gradio
+os.environ['MPLCONFIGDIR'] = '/tmp/matplotlib'
+os.environ['FLAGGING_DIR'] = '/tmp/flagged'
 
 import gradio as gr
 from image_processing.image_io import load_img
