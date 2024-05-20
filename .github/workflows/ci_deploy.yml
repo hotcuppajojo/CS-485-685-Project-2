@@ -16,24 +16,19 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
       with:
-        python-version: '3.8'
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-    - name: Install dependencies
+    - name: Build and push Docker image
       run: |
-        python -m pip install --upgrade pip
-        pip install coverage
-        pip install -r requirements.txt
-
-    - name: Run tests with coverage
-      run: |
-        coverage run -m unittest discover tests/
-
-    - name: Generate coverage report
-      run: |
-        coverage report -m
+        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/project2-image:latest .
+        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/project2-image:latest
 
     - name: Clone Hugging Face Space repository
       env:
@@ -43,10 +38,10 @@ jobs:
         cd Retro-Corner-Feature-Detector_Moravec-Harris_with_LBP-HOG
         git remote set-url origin https://username:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/HotCuppaJoJo/Retro-Corner-Feature-Detector_Moravec-Harris_with_LBP-HOG
 
-    - name: Copy files to Hugging Face Space repository
+    - name: Update Docker image in Hugging Face Space
       run: |
-        cp -r * Retro-Corner-Feature-Detector_Moravec-Harris_with_LBP-HOG/
+        echo 'FROM ${{ secrets.DOCKER_HUB_USERNAME }}/project2-image:latest' > Retro-Corner-Feature-Detector_Moravec-Harris_with_LBP-HOG/Dockerfile
         cd Retro-Corner-Feature-Detector_Moravec-Harris_with_LBP-HOG
-        git add .
-        git commit -m "Update from GitHub Actions"
+        git add Dockerfile
+        git commit -m "Update Docker image"
         git push origin main
