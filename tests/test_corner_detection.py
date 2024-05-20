@@ -31,48 +31,40 @@ class TestCornerDetection(unittest.TestCase):
 
     def test_moravec_detector(self):
         # Test with grayscale image
-        print("Testing with grayscale image")
         keypoints = moravec_detector(self.image, percentile=75)
         self.assertGreater(len(keypoints), 0)
         self._check_keypoints_within_bounds(keypoints)
 
         # Test with color image
-        print("Testing with color image")
         keypoints = moravec_detector(self.color_image, percentile=75)
         self.assertGreater(len(keypoints), 0)
         self._check_keypoints_within_bounds(keypoints)
 
         # Test with binary image
-        print("Testing with binary image")
         keypoints = moravec_detector(self.binary_image, percentile=75)
         self.assertGreater(len(keypoints), 0)
         self._check_keypoints_within_bounds(keypoints)
 
         # Test with different percentile values
-        print("Testing with different percentile values")
         keypoints = moravec_detector(self.image, percentile=50)
         self.assertGreater(len(keypoints), 0)
         self._check_keypoints_within_bounds(keypoints)
 
         # Test with empty image
-        print("Testing with empty image")
         keypoints = moravec_detector(self.empty_image, percentile=75)
         self.assertEqual(len(keypoints), 0)
 
         # Test with image of different size
-        print("Testing with image of different size")
         large_image = np.resize(self.image, (200, 200))
         keypoints = moravec_detector(large_image, percentile=75)
         self.assertGreater(len(keypoints), 0)
         self._check_keypoints_within_bounds(keypoints)
 
         # Test with image that contains no corners
-        print("Testing with image that contains no corners")
         keypoints = moravec_detector(self.no_corners_image, percentile=75)
         self.assertEqual(len(keypoints), 0)
 
         # Test with image that contains only corners
-        print("Testing with image that contains only corners")
         keypoints = moravec_detector(self.only_corners_image, window_size=5, percentile=75)
         self.assertGreater(len(keypoints), 0)
         self._check_keypoints_within_bounds(keypoints)
