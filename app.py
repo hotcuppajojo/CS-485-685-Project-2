@@ -58,7 +58,7 @@ def process_image(image1, image2, detector, extractor):
         return None, None
 
 # Set the flagging directory to a writable location
-flagging_dir = "/usr/src/app/flagged"
+flagging_dir = os.getenv("FLAGGING_DIR", "/usr/src/app/flagged")
 os.makedirs(flagging_dir, exist_ok=True)
 
 iface = gr.Interface(

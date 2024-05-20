@@ -16,8 +16,8 @@ RUN mkdir -p /tmp/.matplotlib && \
 # Set environment variable to specify the Matplotlib configuration directory
 ENV MPLCONFIGDIR=/tmp/.matplotlib
 
-# Set environment variable to specify the Gradio server port
-ENV GRADIO_SERVER_PORT=7860
+# Set environment variable to specify the Gradio flagging directory
+ENV FLAGGING_DIR=/usr/src/app/flagged
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
