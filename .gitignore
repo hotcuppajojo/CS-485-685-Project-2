@@ -186,3 +186,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 tests/tempCodeRunnerFile.py
+
+# Ignore temporary files created by code runners
+tempCodeRunnerFile.py
