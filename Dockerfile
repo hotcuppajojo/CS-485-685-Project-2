@@ -1,21 +1,19 @@
 # Use an official Python runtime as a parent image
 FROM python:3.8-slim
 
+# Set environment variables for Matplotlib and Gradio
+ENV MPLCONFIGDIR=/usr/src/app/matplotlib
+ENV FLAGGING_DIR=/usr/src/app/flagged
+
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
+# Create directories and set permissions
+RUN mkdir -p /usr/src/app/matplotlib /usr/src/app/flagged && \
+    chmod -R 777 /usr/src/app/matplotlib /usr/src/app/flagged
+
 # Copy the current directory contents into the container at /usr/src/app
 COPY . .
-
-# Create writable directories for Matplotlib cache and Gradio flagging
-RUN mkdir -p /tmp/matplotlib && \
-    mkdir -p /usr/src/app/flagged && \
-    chmod -R 777 /tmp/matplotlib && \
-    chmod -R 777 /usr/src/app/flagged
-
-# Set environment variables
-ENV MPLCONFIGDIR=/tmp/matplotlib
-ENV FLAGGING_DIR=/usr/src/app/flagged
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt

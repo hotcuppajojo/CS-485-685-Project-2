@@ -1,4 +1,9 @@
 import os
+
+# Set environment variables for Matplotlib and Gradio
+os.environ['MPLCONFIGDIR'] = os.getenv('MPLCONFIGDIR', '/usr/src/app/matplotlib')
+os.environ['FLAGGING_DIR'] = os.getenv('FLAGGING_DIR', '/usr/src/app/flagged')
+
 import gradio as gr
 from image_processing.image_io import load_img
 from image_processing.corner_detection import moravec_detector, harris_detector
@@ -57,8 +62,8 @@ def process_image(image1, image2, detector, extractor):
         print(f"Error: {e}")
         return None, None
 
-# Set the flagging directory to a writable location
-flagging_dir = os.getenv("FLAGGING_DIR", "/usr/src/app/flagged")
+# Create the flagging directory if it doesn't exist
+flagging_dir = os.getenv('FLAGGING_DIR')
 os.makedirs(flagging_dir, exist_ok=True)
 
 iface = gr.Interface(
