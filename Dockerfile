@@ -8,13 +8,13 @@ WORKDIR /usr/src/app
 COPY . .
 
 # Create writable directories for Matplotlib cache and Gradio flagging
-RUN mkdir -p /tmp/.matplotlib && \
+RUN mkdir -p /tmp/matplotlib && \
     mkdir -p /usr/src/app/flagged && \
-    chmod -R 777 /tmp/.matplotlib && \
+    chmod -R 777 /tmp/matplotlib && \
     chmod -R 777 /usr/src/app/flagged
 
 # Set environment variable to specify the Matplotlib configuration directory
-ENV MPLCONFIGDIR=/tmp/.matplotlib
+ENV MPLCONFIGDIR=/tmp/matplotlib
 
 # Set environment variable to specify the Gradio flagging directory
 ENV FLAGGING_DIR=/usr/src/app/flagged
