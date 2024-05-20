@@ -1,5 +1,5 @@
 import gradio as gr
-from image_processing.image_io import load_img, display_img
+from image_processing.image_io import load_img
 from image_processing.corner_detection import moravec_detector, harris_detector
 from image_processing.feature_extraction import extract_LBP, extract_HOG
 from feature_matching.matching import feature_matching
@@ -21,17 +21,17 @@ def process_image(image1, image2, detector, extractor):
 iface = gr.Interface(
     fn=process_image,
     inputs=[
-        gr.inputs.Image(type="file", label="Image 1"),
-        gr.inputs.Image(type="file", label="Image 2 (optional)"),
-        gr.inputs.Radio(["Moravec", "Harris"], label="Detector"),
-        gr.inputs.Radio(["LBP", "HOG"], label="Extractor")
+        gr.Image(type="file", label="Image 1"),
+        gr.Image(type="file", label="Image 2 (optional)"),
+        gr.Radio(["Moravec", "Harris"], label="Detector"),
+        gr.Radio(["LBP", "HOG"], label="Extractor")
     ],
     outputs=[
-        gr.outputs.Image(type="numpy", label="Image with Keypoints"),
-        gr.outputs.Image(type="numpy", label="Matched Image")
+        gr.Image(type="numpy", label="Image with Keypoints"),
+        gr.Image(type="numpy", label="Matched Image")
     ],
     title="Project2 Image Processing",
     description="Upload an image to detect and display keypoints. Optionally, upload a second image for feature matching."
 )
 
-iface.launch()
+iface.launch(server_name="0.0.0.0", server_port=8000)
